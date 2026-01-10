@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>電気料金比較シミュレーション</title>
+    <link rel="stylesheet" href="electricity_simulation.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ 電気料金比較シミュレーション</h1>
+            <p>今の電力会社と、新しい電力会社（基本料無料・定額割引など）を比較します。</p>
+        </header>
+
+        <section class="usage-input">
+            <div class="card">
+                <h2>📊 月間使用量を入力</h2>
+                <div class="input-group large-input">
+                    <label for="monthlyUsage">使用量（kWh）</label>
+                    <input type="number" id="monthlyUsage" value="300" min="0">
+                </div>
+            </div>
+        </section>
+
+        <div class="comparison-grid">
+            <!-- Plan A: Current Provider -->
+            <section class="plan-card" id="planA">
+                <div class="card-header">
+                    <h2>今の電力会社</h2>
+                    <span class="badge">従来プラン</span>
+                </div>
+                <div class="card-body">
+                    <div class="input-group">
+                        <label for="basicCharge">基本料金 (円)</label>
+                        <input type="number" id="basicCharge" value="1500">
+                    </div>
+
+                    <h3>従量料金設定</h3>
+
+                    <div class="tier-group">
+                        <h4>第1段階</h4>
+                        <div class="row">
+                            <div class="col">
+                                <label>上限 (kWh)</label>
+                                <input type="number" id="tier1Limit" value="120">
+                            </div>
+                            <div class="col">
+                                <label>単価 (円)</label>
+                                <input type="number" id="tier1Price" value="20.00" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tier-group">
+                        <h4>第2段階</h4>
+                        <div class="row">
+                            <div class="col">
+                                <label>上限 (kWh)</label>
+                                <input type="number" id="tier2Limit" value="300">
+                            </div>
+                            <div class="col">
+                                <label>単価 (円)</label>
+                                <input type="number" id="tier2Price" value="30.00" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tier-group">
+                        <h4>第3段階</h4>
+                        <div class="row">
+                            <div class="col">
+                                <label>範囲</label>
+                                <span class="static-value">上記超過分</span>
+                            </div>
+                            <div class="col">
+                                <label>単価 (円)</label>
+                                <input type="number" id="tier3Price" value="35.00" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="fuelAdjust">燃料費調整額 (円/kWh) <span class="calc-note">※任意</span></label>
+                        <input type="number" id="fuelAdjust" value="0" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label for="renewLevy">再エネ賦課金 (円/kWh) <span class="calc-note">※任意</span></label>
+                        <input type="number" id="renewLevy" value="0" step="0.01">
+                    </div>
+                </div>
+                <div class="total-display">
+                    <span class="label">請求目安額</span>
+                    <span class="value" id="resultA">0</span>
+                    <span class="unit">円</span>
+                </div>
+            </section>
+
+            <!-- Plan B: New Provider -->
+            <section class="plan-card" id="planB">
+                <div class="card-header">
+                    <h2>乗り換え先</h2>
+                    <span class="badge highlight">定額割引プラン</span>
+                </div>
+                <div class="card-body">
+                    <p class="description">基本料金0円、単価一律、定額割引があるプランのシミュレーションです。</p>
+
+                    <div class="input-group highlight-input">
+                        <label for="planBPrice">電力量単価 (円/kWh)</label>
+                        <input type="number" id="planBPrice" value="70.00" step="0.01">
+                    </div>
+
+                    <div class="input-group highlight-input">
+                        <label for="planBDiscount">毎月の割引額 (円)</label>
+                        <input type="number" id="planBDiscount" value="5000">
+                        <p class="note">※タダ電などの無料枠相当</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="planBFuelAdjust">燃料費調整額 (円/kWh) <span class="calc-note">※任意</span></label>
+                        <input type="number" id="planBFuelAdjust" value="0" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label for="planBRenewLevy">再エネ賦課金 (円/kWh) <span class="calc-note">※任意</span></label>
+                        <input type="number" id="planBRenewLevy" value="0" step="0.01">
+                    </div>
+                </div>
+                <div class="total-display">
+                    <span class="label">請求目安額</span>
+                    <span class="value" id="resultB">0</span>
+                    <span class="unit">円</span>
+                </div>
+            </section>
+        </div>
+
+        <section class="result-summary" id="resultSummary">
+            <h2>🏆 判定結果</h2>
+            <div class="verdict" id="verdictText">計算中...</div>
+            <div class="diff-info">
+                差額: <span id="diffValue">0</span> 円
+            </div>
+        </section>
+    </div>
+    <script src="electricity_simulation.js"></script>
+</body>
+
+</html>
