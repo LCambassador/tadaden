@@ -78,7 +78,7 @@ h1 {
 }
 
 .plan-card.winner::after {
-    content: "👑 CHEAPER!";
+    content: "👑 CHEAPER!（こっちが安いよ）";
     position: absolute;
     top: -15px;
     right: 20px;
@@ -259,4 +259,5 @@ input[type="number"] {
 #diffValue {
     font-weight: bold;
     color: #e74c3c;
+
 }
